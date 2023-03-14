@@ -9,7 +9,17 @@ async function submitNewUsername(){
 //   newUsername: newUsername,
 // });
 
-const result = await axios.post("http://localhost:3002/changeuser");
+const result = await axios.put(`http://localhost:3002/changeuser/${uuid}`,{
+
+    newUsername: newUsername
+},
+{
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+          
+        },
+        withCredentials: false
+      });
 }
 
 </script>
