@@ -16,6 +16,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const uuid_1 = require("uuid");
 const supabase_js_1 = require("@supabase/supabase-js");
+const argon2_1 = require("argon2");
 const supabaseUrl = 'https://wpvnbefbwiteogcwdbye.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indwdm5iZWZid2l0ZW9nY3dkYnllIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NzgxNjg4MDAsImV4cCI6MTk5Mzc0NDgwMH0.J6fTdkRx3dDc6UHZ34mvhkV_5tovRaPYjJ4H_Qbg3uE';
 const supabase = (0, supabase_js_1.createClient)(supabaseUrl, supabaseKey);
@@ -26,15 +27,18 @@ app.post("/test", function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const username = req.body.username;
         const email = req.body.email;
+        const password = req.body.password;
+        const hashed = yield (0, argon2_1.hash)(password);
         const user = {
             uuid: (0, uuid_1.v4)(),
             username: username,
-            email: email
+            email: email,
+            password: hashed,
         };
         const { error } = yield supabase
             .from('test')
             .insert(user);
-        res.send("testing post");
+        res.send(hashed);
     });
 });
 function getUserById(supabase, uuid) {

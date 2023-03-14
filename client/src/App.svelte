@@ -1,6 +1,7 @@
 <script lang="ts">
     import AllUsers from "./components/AllUsers.svelte";
     import ChangeUsername from "./components/ChangeUsername.svelte";
+    import Login from "./components/Login.svelte";
 import UserForm from "./components/UserForm.svelte";
 
 let displayForm: number = 0;
@@ -23,6 +24,7 @@ function changeDisplay(){
 
 <main>
   <button on:click={changeDisplay} class="btn btn-active btn-primary">Change Display</button>
+  <Login/>
   {#if displayForm === 0}
   <UserForm/>
   {:else if displayForm === 1}

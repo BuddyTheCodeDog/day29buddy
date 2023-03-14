@@ -5,9 +5,11 @@
     let newUsername:string = "";
     
 async function submitNewUsername(){
-const result = await axios.put(`http://localhost:3002/test/${uuid}`,{
-  newUsername: newUsername,
-});
+// const result = await axios.put(`http://localhost:3002/changeuser/${uuid}`,{
+//   newUsername: newUsername,
+// });
+
+const result = await axios.post("http://localhost:3002/changeuser");
 }
 
 </script>
